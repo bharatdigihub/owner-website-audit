@@ -1,0 +1,134 @@
+.report-generator {
+  margin-top: 30px;
+}
+
+.export-buttons {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.btn {
+  padding: 12px 20px;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 1rem;
+}
+
+.btn-pdf {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+.btn-pdf:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+}
+
+.btn-json {
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  color: white;
+}
+
+.btn-json:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(245, 87, 108, 0.4);
+}
+
+.btn-csv {
+  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  color: white;
+}
+
+.btn-csv:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(79, 172, 254, 0.4);
+}
+
+.pdf-content {
+  background: white;
+  padding: 40px;
+}
+
+.pdf-header {
+  text-align: center;
+  margin-bottom: 40px;
+  border-bottom: 2px solid #667eea;
+  padding-bottom: 20px;
+}
+
+.pdf-header h1 {
+  margin: 0 0 10px 0;
+  color: #333;
+}
+
+.pdf-header p {
+  margin: 5px 0;
+  color: #666;
+}
+
+.pdf-overall {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 30px;
+}
+
+.pdf-overall h2 {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.pdf-section {
+  margin-bottom: 30px;
+}
+
+.pdf-section h3 {
+  color: #333;
+  margin: 0 0 15px 0;
+}
+
+.pdf-section table {
+  width: 100%;
+  border-collapse: collapse;
+  border: 1px solid #e0e0e0;
+}
+
+.pdf-section table thead {
+  background: #f5f5f5;
+}
+
+.pdf-section table th {
+  padding: 12px;
+  text-align: left;
+  font-weight: 600;
+  border-bottom: 2px solid #e0e0e0;
+}
+
+.pdf-section table td {
+  padding: 10px 12px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.pdf-section table tbody tr:nth-child(even) {
+  background: #fafafa;
+}
+
+@media (max-width: 768px) {
+  .export-buttons {
+    flex-direction: column;
+  }
+
+  .btn {
+    width: 100%;
+  }
+
+  .pdf-content {
+    padding: 20px;
+  }
+}
