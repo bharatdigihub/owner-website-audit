@@ -117,36 +117,36 @@ class WaterfallAnalyzer(BaseAnalyzer):
     
     def _estimate_html_size(self):
         """Estimate HTML document size"""
-        return len(self.html_content.encode('utf-8')) if self.html_content else 50000
+        return len(self.html.encode('utf-8')) if self.html else 50000
     
     def _extract_css_files(self):
         """Extract CSS file references from HTML"""
-        if not self.html_content:
+        if not self.html:
             return ['style.css']
         
         import re
         css_pattern = r'href=["\']([^"\']*\.css[^"\']*)["\'"]'
-        matches = re.findall(css_pattern, self.html_content)
+        matches = re.findall(css_pattern, self.html)
         return matches or ['style.css']
     
     def _extract_js_files(self):
         """Extract JavaScript file references from HTML"""
-        if not self.html_content:
+        if not self.html:
             return ['script.js']
         
         import re
         js_pattern = r'src=["\']([^"\']*\.js[^"\']*)["\'"]'
-        matches = re.findall(js_pattern, self.html_content)
+        matches = re.findall(js_pattern, self.html)
         return matches or ['script.js']
     
     def _extract_images(self):
         """Extract image file references from HTML"""
-        if not self.html_content:
+        if not self.html:
             return ['image.jpg']
         
         import re
         img_pattern = r'src=["\']([^"\']*(?:\.jpg|\.png|\.gif|\.webp|\.svg)[^"\']*)["\'"]'
-        matches = re.findall(img_pattern, self.html_content)
+        matches = re.findall(img_pattern, self.html)
         return matches[:10] or ['image.jpg']
     
     def _get_mime_type(self, filename):
