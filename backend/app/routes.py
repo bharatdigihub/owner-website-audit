@@ -8,6 +8,10 @@ from app.analyzers.user_behavior import UserBehaviorAnalyzer
 from app.analyzers.mobile_optimization import MobileOptimizationAnalyzer
 from app.analyzers.accessibility import AccessibilityAnalyzer
 from app.analyzers.advanced_metrics import AdvancedMetricsAnalyzer
+from app.analyzers.core_web_vitals import CoreWebVitalsAnalyzer
+from app.analyzers.waterfall import WaterfallAnalyzer
+from app.analyzers.multi_location import MultiLocationAnalyzer
+from app.analyzers.device_simulation import DeviceSimulationAnalyzer
 from app.utils.validator import validate_url
 import traceback
 
@@ -44,6 +48,10 @@ def analyze_website():
             'mobile_optimization': MobileOptimizationAnalyzer(url).analyze(),
             'accessibility': AccessibilityAnalyzer(url).analyze(),
             'advanced_metrics': AdvancedMetricsAnalyzer(url).analyze(),
+            'core_web_vitals': CoreWebVitalsAnalyzer(url).analyze(),
+            'waterfall': WaterfallAnalyzer(url).analyze(),
+            'multi_location': MultiLocationAnalyzer(url).analyze(),
+            'device_simulation': DeviceSimulationAnalyzer(url).analyze(),
         }
         
         return jsonify(results), 200
@@ -199,6 +207,74 @@ def analyze_advanced_metrics():
             return jsonify({'error': 'Invalid URL'}), 400
         
         analyzer = AdvancedMetricsAnalyzer(url)
+        results = analyzer.analyze()
+        
+        return jsonify(results), 200
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+@analyzer_bp.route('/analyze/core-web-vitals', methods=['POST'])
+def analyze_core_web_vitals():
+    """Core Web Vitals analysis only"""
+    try:
+        data = request.get_json()
+        url = data.get('url')
+        
+        if not url or not validate_url(url):
+            return jsonify({'error': 'Invalid URL'}), 400
+        
+        analyzer = CoreWebVitalsAnalyzer(url)
+        results = analyzer.analyze()
+        
+        return jsonify(results), 200
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+@analyzer_bp.route('/analyze/waterfall', methods=['POST'])
+def analyze_waterfall():
+    """Waterfall chart analysis only"""
+    try:
+        data = request.get_json()
+        url = data.get('url')
+        
+        if not url or not validate_url(url):
+            return jsonify({'error': 'Invalid URL'}), 400
+        
+        analyzer = WaterfallAnalyzer(url)
+        results = analyzer.analyze()
+        
+        return jsonify(results), 200
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+@analyzer_bp.route('/analyze/multi-location', methods=['POST'])
+def analyze_multi_location():
+    """Multi-location testing analysis only"""
+    try:
+        data = request.get_json()
+        url = data.get('url')
+        
+        if not url or not validate_url(url):
+            return jsonify({'error': 'Invalid URL'}), 400
+        
+        analyzer = MultiLocationAnalyzer(url)
+        results = analyzer.analyze()
+        
+        return jsonify(results), 200
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+@analyzer_bp.route('/analyze/device-simulation', methods=['POST'])
+def analyze_device_simulation():
+    """Device simulation analysis only"""
+    try:
+        data = request.get_json()
+        url = data.get('url')
+        
+        if not url or not validate_url(url):
+            return jsonify({'error': 'Invalid URL'}), 400
+        
+        analyzer = DeviceSimulationAnalyzer(url)
         results = analyzer.analyze()
         
         return jsonify(results), 200
