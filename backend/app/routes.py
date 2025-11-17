@@ -28,6 +28,7 @@ def analyze_website():
     try:
         data = request.get_json()
         url = data.get('url')
+        form_factor = data.get('form_factor', 'desktop')  # 'desktop' or 'mobile'
         
         if not url:
             return jsonify({'error': 'URL is required'}), 400
@@ -39,7 +40,8 @@ def analyze_website():
         # Run all analyses
         results = {
             'url': url,
-            'performance': PerformanceAnalyzer(url).analyze(),
+            'form_factor': form_factor,
+            'performance': PerformanceAnalyzer(url, form_factor=form_factor).analyze(),
             'security': SecurityAnalyzer(url).analyze(),
             'seo': SEOAnalyzer(url).analyze(),
             'coding_standards': CodeStandardsAnalyzer(url).analyze(),
@@ -48,10 +50,10 @@ def analyze_website():
             'mobile_optimization': MobileOptimizationAnalyzer(url).analyze(),
             'accessibility': AccessibilityAnalyzer(url).analyze(),
             'advanced_metrics': AdvancedMetricsAnalyzer(url).analyze(),
-            'core_web_vitals': CoreWebVitalsAnalyzer(url).analyze(),
-            'waterfall': WaterfallAnalyzer(url).analyze(),
+            'core_web_vitals': CoreWebVitalsAnalyzer(url, form_factor=form_factor).analyze(),
+            'waterfall': WaterfallAnalyzer(url, form_factor=form_factor).analyze(),
             'multi_location': MultiLocationAnalyzer(url).analyze(),
-            'device_simulation': DeviceSimulationAnalyzer(url).analyze(),
+            'device_simulation': DeviceSimulationAnalyzer(url, form_factor=form_factor).analyze(),
         }
         
         return jsonify(results), 200

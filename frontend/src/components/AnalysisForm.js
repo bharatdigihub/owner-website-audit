@@ -3,6 +3,7 @@ import './AnalysisForm.css';
 
 function AnalysisForm({ onAnalyze, loading, error }) {
   const [url, setUrl] = useState('');
+  const [formFactor, setFormFactor] = useState('desktop');
   const [inputError, setInputError] = useState('');
 
   const handleSubmit = (e) => {
@@ -14,7 +15,7 @@ function AnalysisForm({ onAnalyze, loading, error }) {
       return;
     }
 
-    onAnalyze(url.trim());
+    onAnalyze(url.trim(), formFactor);
   };
 
   return (
@@ -41,6 +42,20 @@ function AnalysisForm({ onAnalyze, loading, error }) {
               className={inputError ? 'error' : ''}
             />
             {inputError && <span className="error-message">{inputError}</span>}
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="formFactor">Analysis Type</label>
+            <select
+              id="formFactor"
+              value={formFactor}
+              onChange={(e) => setFormFactor(e.target.value)}
+              disabled={loading}
+              className="form-select"
+            >
+              <option value="desktop">Desktop</option>
+              <option value="mobile">Mobile</option>
+            </select>
           </div>
 
           {error && <div className="form-error">{error}</div>}

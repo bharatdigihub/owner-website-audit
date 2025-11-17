@@ -6,8 +6,9 @@ from datetime import datetime
 class BaseAnalyzer:
     """Base class for all analyzers"""
     
-    def __init__(self, url):
+    def __init__(self, url, form_factor='desktop'):
         self.url = url
+        self.form_factor = form_factor  # 'desktop' or 'mobile'
         self.html = None
         self.soup = None
         self.response = None
@@ -16,9 +17,13 @@ class BaseAnalyzer:
     def fetch_page(self):
         """Fetch the webpage"""
         try:
-            headers = {
-                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
-            }
+            # Different user agents for mobile vs desktop
+            if self.form_factor == 'mobile':
+                user_agent = 'Mozilla/5.0 (Linux; Android 13) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36'
+            else:
+                user_agent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
+            
+            headers = {'User-Agent': user_agent}
             self.response = requests.get(self.url, headers=headers, timeout=10)
             self.html = self.response.text
             self.soup = BeautifulSoup(self.html, 'html.parser')

@@ -11,7 +11,7 @@ function App() {
   const [error, setError] = useState(null);
   const [currentUrl, setCurrentUrl] = useState('');
 
-  const handleAnalyze = async (url) => {
+  const handleAnalyze = async (url, formFactor = 'desktop') => {
     setLoading(true);
     setError(null);
     setCurrentUrl(url);
@@ -23,7 +23,7 @@ function App() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ url }),
+        body: JSON.stringify({ url, form_factor: formFactor }),
       });
 
       if (!response.ok) {

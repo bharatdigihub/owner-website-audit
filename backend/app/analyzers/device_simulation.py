@@ -113,7 +113,10 @@ class DeviceSimulationAnalyzer(BaseAnalyzer):
         # Calculate base load time from response
         base_time = int(self.response.elapsed.total_seconds() * 1000) if self.response and hasattr(self.response, 'elapsed') else 1000
         
-        for device in self.DEVICES:
+        # Filter devices by form_factor
+        devices_to_test = [d for d in self.DEVICES if d['category'] == self.form_factor or self.form_factor == 'desktop' and d['category'] in ['desktop', 'laptop']]
+        
+        for device in devices_to_test:
             # Calculate load time based on device capabilities
             load_time = int(base_time * device['cpu_throttle'])
             

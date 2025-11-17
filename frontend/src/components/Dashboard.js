@@ -193,7 +193,7 @@ function Dashboard({ data, url, onNewAnalysis }) {
     <div className="dashboard">
       <div className="dashboard-header">
         <div className="dashboard-title">
-          <h2>Analysis Results</h2>
+          <h2>Analysis Results {data.form_factor === 'mobile' ? '📱' : '🖥️'} ({data.form_factor ? data.form_factor.charAt(0).toUpperCase() + data.form_factor.slice(1) : 'Desktop'})</h2>
           <p className="analyzed-url">{url}</p>
         </div>
         <button className="new-analysis-btn" onClick={onNewAnalysis}>

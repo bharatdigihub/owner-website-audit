@@ -35,16 +35,19 @@ class WaterfallAnalyzer(BaseAnalyzer):
         resources = []
         current_time = 0  # milliseconds
         
+        # Apply form_factor throttling
+        throttle = 1.0 if self.form_factor == 'desktop' else 1.8  # Mobile is slower
+        
         # HTML document
         resources.append(self._create_resource(
             type='document',
             name='index.html',
             size=self._estimate_html_size(),
             start_time=current_time,
-            dns=50,
-            tcp=100,
-            request=50,
-            response=200
+            dns=int(50 * throttle),
+            tcp=int(100 * throttle),
+            request=int(50 * throttle),
+            response=int(200 * throttle)
         ))
         current_time += 400
         

@@ -87,7 +87,7 @@ class CoreWebVitalsAnalyzer(BaseAnalyzer):
     def _estimate_lcp(self):
         """Estimate LCP based on page complexity and structure"""
         # Simulate LCP based on content size and network conditions
-        base_lcp = 1800  # base 1.8s
+        base_lcp = 1800 if self.form_factor == 'desktop' else 2500  # Mobile slower
         
         # Estimate increases based on typical page factors
         if self.html:
@@ -104,8 +104,13 @@ class CoreWebVitalsAnalyzer(BaseAnalyzer):
             # Media elements slow down LCP
             base_lcp += (num_images * 50) + (num_videos * 200)
         
+        # Add mobile penalty
+        if self.form_factor == 'mobile':
+            base_lcp = int(base_lcp * 1.3)
+        
         # Add some variance
-        return max(500, base_lcp + int(self.fetch_time * 2))
+        response_time = int(self.response.elapsed.total_seconds() * 1000) if self.response and hasattr(self.response, 'elapsed') else 1000
+        return max(500, base_lcp + int(response_time * 0.5))
     
     def _estimate_fid(self):
         """Estimate First Input Delay based on JS load"""
