@@ -110,7 +110,8 @@ class DeviceSimulationAnalyzer(BaseAnalyzer):
     def _test_all_devices(self):
         """Simulate testing on all device types"""
         results = []
-        base_time = self.fetch_time if self.fetch_time else 1000
+        # Calculate base load time from response
+        base_time = int(self.response.elapsed.total_seconds() * 1000) if self.response and hasattr(self.response, 'elapsed') else 1000
         
         for device in self.DEVICES:
             # Calculate load time based on device capabilities
