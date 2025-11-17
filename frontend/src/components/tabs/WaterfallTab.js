@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import '../PerformanceTab.css';
+import './PerformanceTab.css';
 
 const WaterfallTab = ({ data }) => {
   const [sortBy, setSortBy] = useState('start_time');

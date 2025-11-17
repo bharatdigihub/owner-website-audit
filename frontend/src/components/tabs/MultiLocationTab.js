@@ -1,6 +1,6 @@
 import React from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, Cell } from 'recharts';
-import '../PerformanceTab.css';
+import './PerformanceTab.css';
 
 const MultiLocationTab = ({ data }) => {
   if (!data) return <div className="tab-content">No multi-location data available</div>;

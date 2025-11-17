@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from 'recharts';
-import '../PerformanceTab.css';
+import './PerformanceTab.css';
 
 const DeviceSimulationTab = ({ data }) => {
   const [selectedCategory, setSelectedCategory] = useState('all');
