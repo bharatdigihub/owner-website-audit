@@ -90,10 +90,10 @@ class CoreWebVitalsAnalyzer(BaseAnalyzer):
         base_lcp = 1800  # base 1.8s
         
         # Estimate increases based on typical page factors
-        if self.html_content:
-            num_images = self.html_content.lower().count('<img')
-            num_videos = self.html_content.lower().count('<video')
-            content_length = len(self.html_content)
+        if self.html:
+            num_images = self.html.lower().count('<img')
+            num_videos = self.html.lower().count('<video')
+            content_length = len(self.html)
             
             # Complex pages take longer
             if content_length > 500000:
@@ -113,9 +113,9 @@ class CoreWebVitalsAnalyzer(BaseAnalyzer):
         base_fid = 80
         
         # Increase based on JS complexity
-        if self.html_content:
-            num_scripts = self.html_content.lower().count('<script')
-            num_async_scripts = self.html_content.lower().count('async')
+        if self.html:
+            num_scripts = self.html.lower().count('<script')
+            num_async_scripts = self.html.lower().count('async')
             
             # Multiple sync scripts delay FID
             base_fid += (num_scripts - num_async_scripts) * 20
@@ -128,12 +128,12 @@ class CoreWebVitalsAnalyzer(BaseAnalyzer):
         base_cls = 0.08
         
         # Increase for unstable layouts
-        if self.html_content:
+        if self.html:
             # Check for ads, images without dimensions
-            num_images = self.html_content.lower().count('<img')
+            num_images = self.html.lower().count('<img')
             
             # Images without width/height cause layout shift
-            images_without_dimensions = max(0, num_images - len(self.html_content.split('width=')))
+            images_without_dimensions = max(0, num_images - len(self.html.split('width=')))
             base_cls += (images_without_dimensions * 0.02)
         
         return min(0.5, max(0.01, base_cls))

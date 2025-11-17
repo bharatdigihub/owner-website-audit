@@ -155,8 +155,8 @@ class DeviceSimulationAnalyzer(BaseAnalyzer):
     def _check_responsive(self, viewport):
         """Check if page is responsive for viewport"""
         # Check for viewport meta tag
-        if self.html_content:
-            if 'viewport' in self.html_content.lower():
+        if self.html:
+            if 'viewport' in self.html.lower():
                 return True
         return False
     
@@ -166,11 +166,11 @@ class DeviceSimulationAnalyzer(BaseAnalyzer):
             return True
         
         # Check for common mobile-friendly indicators
-        if self.html_content:
+        if self.html:
             checks = [
-                'viewport' in self.html_content.lower(),
-                'mobile' in self.html_content.lower(),
-                '@media' in self.html_content,
+                'viewport' in self.html.lower(),
+                'mobile' in self.html.lower(),
+                '@media' in self.html,
             ]
             return sum(checks) >= 2
         return False
