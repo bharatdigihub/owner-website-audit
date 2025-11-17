@@ -11,6 +11,10 @@ import UserBehaviorTab from './tabs/UserBehaviorTab';
 import MobileOptimizationTab from './tabs/MobileOptimizationTab';
 import AccessibilityTab from './tabs/AccessibilityTab';
 import AdvancedMetricsTab from './tabs/AdvancedMetricsTab';
+import CoreWebVitalsTab from './tabs/CoreWebVitalsTab';
+import WaterfallTab from './tabs/WaterfallTab';
+import MultiLocationTab from './tabs/MultiLocationTab';
+import DeviceSimulationTab from './tabs/DeviceSimulationTab';
 import ReportGenerator from './ReportGenerator';
 import { ScoreDistributionChart, RadarScoreChart, GradeDistributionChart, IssuesVsSeverityChart } from './charts/AnalysisCharts';
 
@@ -28,6 +32,10 @@ function Dashboard({ data, url, onNewAnalysis }) {
     { id: 'mobile', label: 'Mobile' },
     { id: 'accessibility', label: 'Accessibility' },
     { id: 'advanced', label: 'Advanced' },
+    { id: 'cwv', label: 'Core Web Vitals' },
+    { id: 'waterfall', label: 'Waterfall' },
+    { id: 'location', label: 'Multi-Location' },
+    { id: 'devices', label: 'Device Simulation' },
   ];
 
   const renderTabContent = () => {
@@ -50,6 +58,14 @@ function Dashboard({ data, url, onNewAnalysis }) {
         return <AccessibilityTab data={data.accessibility} />;
       case 'advanced':
         return <AdvancedMetricsTab data={data.advanced_metrics} />;
+      case 'cwv':
+        return <CoreWebVitalsTab data={data} />;
+      case 'waterfall':
+        return <WaterfallTab data={data} />;
+      case 'location':
+        return <MultiLocationTab data={data} />;
+      case 'devices':
+        return <DeviceSimulationTab data={data} />;
       default:
         return (
           <div className="overview-tab">
@@ -108,6 +124,30 @@ function Dashboard({ data, url, onNewAnalysis }) {
                 grade={data.advanced_metrics.grade}
                 icon="📊"
               />
+              <ScoreCard 
+                title="Core Web Vitals" 
+                score={data.core_web_vitals.score}
+                grade={data.core_web_vitals.grade}
+                icon="💨"
+              />
+              <ScoreCard 
+                title="Waterfall" 
+                score={data.waterfall.score}
+                grade={data.waterfall.grade}
+                icon="📈"
+              />
+              <ScoreCard 
+                title="Multi-Location" 
+                score={data.multi_location.score}
+                grade={data.multi_location.grade}
+                icon="🌍"
+              />
+              <ScoreCard 
+                title="Device Simulation" 
+                score={data.device_simulation.score}
+                grade={data.device_simulation.grade}
+                icon="📱"
+              />
             </div>
 
             <div className="overall-score">
@@ -122,8 +162,12 @@ function Dashboard({ data, url, onNewAnalysis }) {
                   data.user_behavior.score +
                   data.mobile_optimization.score +
                   data.accessibility.score +
-                  data.advanced_metrics.score
-                ) / 9)}%
+                  data.advanced_metrics.score +
+                  data.core_web_vitals.score +
+                  data.waterfall.score +
+                  data.multi_location.score +
+                  data.device_simulation.score
+                ) / 13)}%
               </div>
             </div>
 
