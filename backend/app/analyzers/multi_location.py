@@ -89,7 +89,8 @@ class MultiLocationAnalyzer(BaseAnalyzer):
     def _test_all_locations(self):
         """Simulate testing from all global locations"""
         results = []
-        base_time = self.fetch_time if self.fetch_time else 1000
+        # Calculate base load time from response
+        base_time = int(self.response.elapsed.total_seconds() * 1000) if self.response and hasattr(self.response, 'elapsed') else 1000
         
         for location in self.GLOBAL_LOCATIONS:
             # Add latency based on location
