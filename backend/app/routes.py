@@ -12,6 +12,7 @@ from app.analyzers.core_web_vitals import CoreWebVitalsAnalyzer
 from app.analyzers.waterfall import WaterfallAnalyzer
 from app.analyzers.multi_location import MultiLocationAnalyzer
 from app.analyzers.device_simulation import DeviceSimulationAnalyzer
+from app.analyzers.ai_support import AISupportAssistant, LocalSupportAssistant
 from app.utils.validator import validate_url
 import traceback
 
@@ -280,5 +281,67 @@ def analyze_device_simulation():
         results = analyzer.analyze()
         
         return jsonify(results), 200
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+@analyzer_bp.route('/support/tutorials', methods=['POST'])
+def get_issue_tutorials():
+    """Get AI-generated tutorials for detected issues"""
+    try:
+        data = request.get_json()
+        issues = data.get('issues', [])
+        analysis_data = data.get('analysis_data', {})
+        
+        if not issues:
+            return jsonify({'error': 'No issues provided'}), 400
+        
+        # Use AI support assistant
+        assistant = AISupportAssistant()
+        tutorials = assistant.get_issue_tutorials(issues, analysis_data)
+        
+        return jsonify(tutorials), 200
+    except Exception as e:
+        print(f"Error generating tutorials: {traceback.format_exc()}")
+        return jsonify({'error': str(e)}), 500
+
+@analyzer_bp.route('/support/analytics', methods=['POST'])
+def get_support_analytics():
+    """Get issue analytics and prioritized recommendations"""
+    try:
+        data = request.get_json()
+        analysis_results = data.get('analysis_results', {})
+        
+        if not analysis_results:
+            return jsonify({'error': 'No analysis results provided'}), 400
+        
+        # Use AI support assistant for analytics
+        assistant = AISupportAssistant()
+        analytics = assistant.get_issue_analytics(analysis_results)
+        
+        return jsonify(analytics), 200
+    except Exception as e:
+        print(f"Error generating analytics: {traceback.format_exc()}")
+        return jsonify({'error': str(e)}), 500
+
+@analyzer_bp.route('/support/quick-fix', methods=['POST'])
+def get_quick_fix():
+    """Get quick fix suggestion for a specific issue"""
+    try:
+        data = request.get_json()
+        issue_title = data.get('issue_title', '')
+        category = data.get('category', 'general')
+        
+        if not issue_title:
+            return jsonify({'error': 'Issue title required'}), 400
+        
+        # Use local knowledge base for quick response
+        solution = LocalSupportAssistant.get_solution(issue_title, category)
+        
+        return jsonify({
+            'status': 'success',
+            'issue_title': issue_title,
+            'category': category,
+            'quick_solution': solution
+        }), 200
     except Exception as e:
         return jsonify({'error': str(e)}), 500

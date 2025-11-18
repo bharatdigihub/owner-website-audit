@@ -15,6 +15,7 @@ import CoreWebVitalsTab from './tabs/CoreWebVitalsTab';
 import WaterfallTab from './tabs/WaterfallTab';
 import MultiLocationTab from './tabs/MultiLocationTab';
 import DeviceSimulationTab from './tabs/DeviceSimulationTab';
+import SupportPanel from './SupportPanel';
 import ReportGenerator from './ReportGenerator';
 import { ScoreDistributionChart, RadarScoreChart, GradeDistributionChart, IssuesVsSeverityChart } from './charts/AnalysisCharts';
 
@@ -36,6 +37,7 @@ function Dashboard({ data, url, onNewAnalysis }) {
     { id: 'waterfall', label: 'Waterfall' },
     { id: 'location', label: 'Multi-Location' },
     { id: 'devices', label: 'Device Simulation' },
+    { id: 'support', label: '💡 AI Support' },
   ];
 
   const renderTabContent = () => {
@@ -66,6 +68,8 @@ function Dashboard({ data, url, onNewAnalysis }) {
         return <MultiLocationTab data={data} />;
       case 'devices':
         return <DeviceSimulationTab data={data} />;
+      case 'support':
+        return <SupportPanel analysisData={data} />;
       default:
         return (
           <div className="overview-tab">
