@@ -55,6 +55,36 @@ The application analyzes websites across seven major categories:
    - Interaction potential scoring
    - Time-on-page factors
 
+7. **Mobile Optimization** 📱
+   - Responsive design checking
+   - Mobile performance metrics
+   - Touch-friendly elements
+   - Viewport configuration
+
+8. **Accessibility** ♿
+   - WCAG compliance
+   - Color contrast checking
+   - Semantic HTML usage
+   - Screen reader compatibility
+
+9. **Advanced Metrics** 📊
+   - Core Web Vitals (LCP, FID, CLS)
+   - Waterfall chart analysis
+   - Multi-location performance
+   - Device simulation
+
+### 🤖 AI-Powered Support System
+
+The analyzer now includes an intelligent support assistant that:
+- **Generates custom tutorials** for each detected issue using Google Gemini AI
+- **Prioritizes issues** by severity and impact
+- **Identifies quick wins** - issues fixable in under 5 minutes
+- **Estimates fix time** - how long it will take to resolve all issues
+- **Provides step-by-step solutions** with code examples and best practices
+- **Works offline** - fallback to local knowledge base when API unavailable
+
+**Get started:** See [AI_SUPPORT_SETUP.md](./AI_SUPPORT_SETUP.md) for configuration
+
 ## Project Structure
 
 ```
@@ -166,6 +196,11 @@ The frontend will be available at `http://localhost:3000`
 - **POST** `/api/analyze/code-standards` - Code standards analysis only
 - **POST** `/api/analyze/user-friendliness` - User experience analysis only
 
+### AI Support Endpoints (🤖 New!)
+- **POST** `/api/support/tutorials` - Get AI-generated tutorials for issues
+- **POST** `/api/support/analytics` - Get issue analytics and priorities
+- **POST** `/api/support/quick-fix` - Get quick fix for a specific issue
+
 ### Health Check
 - **GET** `/api/health` - API health status
 
@@ -200,6 +235,13 @@ Each analysis returns a comprehensive report with:
 - ✅ **Performance Scoring** - Grade-based scoring system (A-F)
 - ✅ **Issue Severity Levels** - Critical, High, Medium, Low categorization
 - ✅ **Responsive Design** - Works on desktop and mobile devices
+- ✅ **AI-Powered Support** - Intelligent tutorial generation for issue fixes
+- ✅ **Quick Win Identification** - 5-minute fixes prioritized
+- ✅ **Issue Analytics** - Prioritized fix recommendations with time estimates
+- ✅ **GTmetrix-like Features** - Waterfall charts, Core Web Vitals, multi-location testing
+- ✅ **Device Simulation** - Test across 8+ device types and networks
+- ✅ **Desktop & Mobile Analysis** - Separate testing for each form factor
+- ✅ **Export Reports** - PDF, CSV, JSON export formats
 
 ## Technologies
 
